@@ -11,12 +11,12 @@
 
 
     <body>
+        {% block header %}
+            {{ include('/partials/_navigation.html.twig') }}
+        {% endblock %}
+
+
         {% block body %}
-
-            {% block header %}
-
-            {% endblock %}
-
 
         {% endblock %}
 
