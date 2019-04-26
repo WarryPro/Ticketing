@@ -7,7 +7,9 @@
 /var/
 /vendor/
 ./.idea/
+/.idea/
 ./misc.xml
+
 
 ###< symfony/framework-bundle ###
 
