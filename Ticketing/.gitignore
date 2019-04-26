@@ -9,6 +9,8 @@
 ./.idea/
 /.idea/
 ./misc.xml
+.idea
+
 
 
 ###< symfony/framework-bundle ###
