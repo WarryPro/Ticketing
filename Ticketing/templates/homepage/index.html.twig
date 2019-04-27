@@ -3,5 +3,7 @@
 {% block title %}Hello HomepageController!{% endblock %}
 
 {% block body %}
-
+    {% block carousel %}
+        {{ include('/partials/_homepage-carousel.html.twig') }}
+    {% endblock %}
 {% endblock %}

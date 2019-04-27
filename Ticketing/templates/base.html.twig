@@ -12,7 +12,9 @@
 
     <body>
         {% block header %}
-            {{ include('/partials/_navigation.html.twig') }}
+            <header id="main-header" class="main-header">
+                {{ include('/partials/_navigation.html.twig') }}
+            </header>
         {% endblock %}
 
 

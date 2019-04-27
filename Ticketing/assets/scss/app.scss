@@ -1,4 +1,14 @@
+@import "./helper/variables";
+
 @import "~bootstrap";
+
+//LAYOUT
+@import "./layout/header";
+@import "./layout/footer";
+
+
+//COMPONENTS
+@import "./components/carousel";
 
 body {
     background: var(--white);
