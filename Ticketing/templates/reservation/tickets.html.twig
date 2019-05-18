@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter | {{ parent() }} {% endblock %}
+
+{% form_theme formTicket 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <div class="container form-container">
+
+        <div class="steps-container">
+            <a href="#" class="step"><span>1</span> Vos coordonnées</a>
+            <a href="#" class="step"><span>2</span> Détails de la commande</a>
+            <a href="#" class="step"><span>3</span> Paiement</a>
+            <a href="#" class="step"><span>4</span> Confirmation</a>
+        </div>
+
+        {{ form_start(formTicket, {'attr': {'class': "form-ticket", 'id': "form-ticket"}}) }}
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">
+            <h2>Vos Coordonnées</h2>
+            <div class="form-group">
+                {{ form_widget(formTicket.nom, {'attr': {'placeholder': "Votre nom"}}) }}
+                {{ form_widget(formTicket.prenom, {'attr': {'placeholder': "Votre prenom"}}) }}
+                {{ form_widget(formTicket.email, {'attr': {'placeholder': "Votre email"}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_widget(formTicket.pays) }}
+                {{ form_widget(formTicket.dateNaissance) }}
+            </div>
+        </div>
+
+        <div class="tab">
+            <h2>Détails de la commande</h2>
+            <div class="form-group">
+                {{ form_widget(formTicket.typeTarif) }}
+                {{ form_widget(formTicket.nbrTickets, {'attr': {'placeholder': "Nombre de billets"}}) }}
+            </div>
+        </div>
+
+        <div class="tab">
+            <h2>Vos Paiement</h2>
+        </div>
+
+        <div class="tab">
+            <h2>Confirmation</h2>
+        </div>
+
+
+        {#bouttons étapes#}
+        <div class="steps-container">
+            <button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>
+            <button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>
+        </div>
+            {{ form_end(formTicket) }}
+
+    </div>
+    {% block javascript %}
+        {{ encore_entry_script_tags('form-steps') }}
+    {% endblock %}
+{% endblock %}
