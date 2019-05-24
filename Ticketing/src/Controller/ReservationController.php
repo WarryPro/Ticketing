@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -41,10 +41,7 @@ class ReservationController extends AbstractController
                       ->add('pays', ChoiceType::class, [
                           'choices' => [
                               'Votre nationalité' => '',
-                              'Suisse' => 'CH',
-                              'France' => 'FR',
-                              'Italie' => 'IT',
-                              'Autre' => 'autre',
+                              'Suisse' => 'CH','France' => 'FR','Italie' => 'IT','Autre' => 'autre',
                               ]
                       ])
                       ->add('dateNaissance', DateType::class, [
@@ -60,7 +57,7 @@ class ReservationController extends AbstractController
                               'Demi-journée' => 1,
                           ]
                       ])
-                      ->add('nbrTickets', NumberType::class)
+                      ->add('nbrTickets', IntegerType::class)
 
 
                       ->getForm();
