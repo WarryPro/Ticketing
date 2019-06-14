@@ -1,0 +1,78 @@
+.card--form {
+  .card-title {
+    font-size: .8rem;
+    color: rgba(black, .5);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  max-width: 350px;
+  label, input {
+    position: relative;
+    display: block;
+    padding: .5rem .8rem;
+    border-radius: 5px;
+    border: 1px solid $blue-color;
+    cursor: pointer;
+    color: $blue-color;
+    transition-duration: 0.4s;
+  }
+
+  .form-radio-container{
+    display: flex;
+    justify-content: space-between;
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      width: calc(50% - .5rem);
+
+      &:before {
+        position: absolute;
+        background-color: white;
+        color: white;
+        content: "";
+        border-radius: 50%;
+        border: 1px solid $blue-color;
+        top: -11px;
+        right: -11px;
+        width: 22px;
+        height: 22px;
+        text-align: center;
+        line-height: 20px;
+        transition-duration: 0.4s;
+        transform: scale(0);
+      }
+    }
+    :checked + label {
+      background-color: $blue-color;
+      color: #fff;
+    }
+    :checked + label:before {
+      content: "✓";
+      color: $blue-color;
+      transform: scale(1);
+    }
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    div {
+      width: calc(50% - .5rem);
+      input {
+        width: 100%;
+        max-width: 100%;
+      }
+      input[type="date"] {
+        padding: .5rem;
+      }
+    }
+  }
+
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

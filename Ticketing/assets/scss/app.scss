@@ -4,11 +4,13 @@
 
 //LAYOUT
 @import "./layout/header";
+@import "./layout/main";
 @import "./layout/footer";
 
 
 //COMPONENTS
 @import "./components/carousel";
+@import "./components/forms";
 
 body {
     background: var(--white);

@@ -3,7 +3,158 @@
 {% block title %}Reservation | {{ parent() }} {% endblock %}
 
 {% block body %}
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-    </div>
+    <main class="container">
+        {{ form_start(form) }}
+        <div class="card card--form text-center">
+            <img src="{{ asset('build/images/ticket.jpg') }}" alt="" class="card-img-top hero-image">
+
+            <div class="card-body">
+
+
+                <!-- Type input-->
+                <div>
+                    <h5 class="card-title">Type de billet</h5>
+                    {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container"}}) }}
+                </div>
+
+                <hr>
+                <!-- Date input - Nombre input-->
+                <div class="form-group ">
+                    <div>
+                        <h5 class="card-title">Date de visite</h5>
+                        {{ form_widget(form.dateVisite) }}
+                    </div>
+
+                    <div>
+                        <h5 class="card-title">Nombre de billets</h5>
+                        {{ form_widget(form.nbrTickets, {'attr': {'value': "1"}}) }}
+                    </div>
+                </div>
+
+                <hr>
+                <button class="btn btn-primary btn-block">Réserver</button>
+
+            </div>
+
+        </div>
+
+        {#<ul class="tags" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">#}
+
+        {#</ul>#}
+
+        <div class="form-container" id="form-steps-container" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">
+
+            <div class="steps-container">
+                <a href="#" class="step"><span>1</span> Vos coordonnées</a>
+                <a href="#" class="step"><span>2</span> Détails de la commande</a>
+                <a href="#" class="step"><span>3</span> Paiement</a>
+                <a href="#" class="step"><span>4</span> Confirmation</a>
+            </div>
+
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab d-none">
+                <h2>Vos Coordonnées</h2>
+                <div class="form-group">
+
+                </div>
+
+                <div class="form-group">
+
+                </div>
+            </div>
+
+            <div class="tab d-none">
+                <h2>Détails de la commande</h2>
+                <div class="form-group">
+
+                </div>
+            </div>
+
+            <div class="tab d-none">
+                <h2>Vos Paiement</h2>
+            </div>
+
+            <div class="tab d-none">
+                <h2>Confirmation</h2>
+            </div>
+
+
+            {#bouttons étapes#}
+            <div class="steps-container">
+                <button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>
+                <button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>
+            </div>
+
+        </div>
+        {{ form_end(form) }}
+    </main>
+
+
+    {% block javascript %}
+        {{ encore_entry_script_tags('form-steps') }}
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button";// cette ligne pour google chrome
+            window.onhashchange = function(){
+                window.location.hash="no-back-button";
+            }
+        </script>
+
+        {#Formulaire dynamique ColletionType#}
+        <script>
+            let $collectionHolder;
+
+            // setup an "add a tag" link
+            let $addTagButton = $('<button type="button" class="add_tag_link">Ajouter un autre billet</button>');
+            let $newLinkLi = $('<li></li>').append($addTagButton);
+
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.tags');
+
+                // add the "add a tag" anchor and li to the tags ul
+                $collectionHolder.append($newLinkLi);
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+                $addTagButton.on('click', function(e) {
+                    // add a new tag form (see next code block)
+                    addTagForm($collectionHolder, $newLinkLi);
+                });
+            });
+
+
+            function addTagForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                let prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                let index = $collectionHolder.data('index');
+
+                let newForm = prototype;
+                // You need this only if you didn't set 'label' => false in your tags field in TaskType
+                // Replace '__name__label__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                // newForm = newForm.replace(/__name__label__/g, index);
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                newForm = newForm.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                let $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+            }
+
+        </script>
+
+    {% endblock %}
 {% endblock %}

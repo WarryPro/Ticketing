@@ -1,0 +1,52 @@
+@import "form-card";
+
+.steps-container {
+  margin: 3rem 0 2rem;
+}
+.tab {
+  //display: none;
+  .form-group {
+    display: flex;
+    .form-control {
+      margin-right: 1rem;
+    }
+  }
+}
+
+
+.step {
+  margin: 0 2px;
+  background-color: $gray-color;
+  padding: .8rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  color: darken($gray-color, 50);
+  opacity: 0.8;
+  pointer-events: none;
+  & span {
+    border-radius: 50%;
+    padding: .4rem .8rem;
+    background-color: var(--white);
+  }
+  &:hover {
+    text-decoration: none;
+    color: darken($gray-color, 50);
+  }
+  &.active, &.finish {
+    opacity: 1;
+    background-color: var(--primary);
+    color: var(--white);
+    pointer-events: auto;
+    & span {
+      color: var(--primary);
+    }
+  }
+
+  &.finish {
+    background-color: rgba($blue-color, .6);
+    & span {
+      color: rgba($blue-color, .6);
+    }
+  }
+}

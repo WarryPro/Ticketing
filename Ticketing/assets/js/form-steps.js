@@ -6,14 +6,14 @@ function showTab(n) {
     const tab = document.getElementsByClassName("tab"),
         step = document.getElementsByClassName("step");
 
-    tab[n].style.display = "block";
+    tab[n].classList.remove("d-none");
     //... and fix the Previous/Next buttons:
     if (n === 0) {
-        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("prevBtn").classList.add("d-none");
         step[n].classList.add("active");
 
     } else {
-        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("prevBtn").classList.remove("d-none");
     }
     if (n === (tab.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Confirmer";
@@ -38,7 +38,7 @@ function nextPrev(n) {
     // Exit the function if any field in the current tab is invalid:
     if (n === 1 && !validateForm()) return false;
     // Hide the current tab:
-    tab[currentTab].style.display = "none";
+    tab[currentTab].classList.add("d-none");
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
     // if you have reached the end of the form...
@@ -62,6 +62,7 @@ function validateForm() {
     // A loop that checks every input field in the current tab:
     if(inputs.length) {
         for (i = 0; i < inputs.length; i++) {
+
             // If a field is empty...
             if (inputs[i].value === "") {
                 // add an "invalid" class to the field:
@@ -105,4 +106,16 @@ function fixStepIndicator(n) {
     }
     //... and adds the "active" class on the current step:
     step[n].classList.add("active");
+}
+
+function validInteger() {
+    let inputInteger = document.querySelector("[data-integer]");
+
+    if(inputInteger !== null) {
+        inputInteger.addEventListener("blur", (e) => {
+            if(!Number.isInteger(parseInt(e.target.value))) {
+                inputInteger.classList.add("invalid");
+            }
+        })
+    }
 }
