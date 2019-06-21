@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BuyerRepository")
@@ -18,11 +19,14 @@ class Buyer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255)
      */
+
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255)
      */
     private $prenom;
 
@@ -38,6 +42,10 @@ class Buyer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' Le email n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -48,6 +56,7 @@ class Buyer
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Choice({"Journée", "Demi-journée"})
      */
     private $typeTicket;
 
