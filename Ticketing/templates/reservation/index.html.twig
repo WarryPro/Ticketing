@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reservation | {{ parent() }} {% endblock %}
-
+{% form_theme form._nbrTickets 'bootstrap_4_layout.html.twig' %}
 {% block body %}
     <main class="container">
         {{ form_start(form) }}
@@ -32,7 +32,7 @@
                 </div>
 
                 <hr>
-                <button class="btn btn-primary btn-block">Réserver</button>
+                <button id="add-form" class="btn btn-primary btn-block">Réserver</button>
 
             </div>
 
@@ -42,10 +42,10 @@
 
         {#</ul>#}
 
-        <div class="form-container" id="form-steps-container" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">
+        <div class="form-container d-none" id="form-steps-container" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">
 
             <div class="steps-container">
-                <a href="#" class="step"><span>1</span> Vos coordonnées</a>
+                <a href="#" class="step"><span>1</span> Infos personnelles</a>
                 <a href="#" class="step"><span>2</span> Détails de la commande</a>
                 <a href="#" class="step"><span>3</span> Paiement</a>
                 <a href="#" class="step"><span>4</span> Confirmation</a>
@@ -54,14 +54,8 @@
 
             <!-- One "tab" for each step in the form: -->
             <div class="tab d-none">
-                <h2>Vos Coordonnées</h2>
-                <div class="form-group">
+                <h2>Infos personnelles</h2>
 
-                </div>
-
-                <div class="form-group">
-
-                </div>
             </div>
 
             <div class="tab d-none">
@@ -108,50 +102,88 @@
             let $collectionHolder;
 
             // setup an "add a tag" link
-            let $addTagButton = $('<button type="button" class="add_tag_link">Ajouter un autre billet</button>');
-            let $newLinkLi = $('<li></li>').append($addTagButton);
+            let $addFormButton = $('#add-form');
+//            let $newLinkLi = $('<li></li>').append($addTagButton);
 
             jQuery(document).ready(function() {
                 // Get the ul that holds the collection of tags
-                $collectionHolder = $('ul.tags');
-
-                // add the "add a tag" anchor and li to the tags ul
-                $collectionHolder.append($newLinkLi);
+                $collectionHolder = $('.form-container');
 
                 // count the current form inputs we have (e.g. 2), use that as the new
                 // index when inserting a new item (e.g. 2)
                 $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-                $addTagButton.on('click', function(e) {
+                $addFormButton.on('click', function(e) {
                     // add a new tag form (see next code block)
-                    addTagForm($collectionHolder, $newLinkLi);
+                    e.preventDefault();
+
+                    if($('.visitor')[0]) $('.visitor')[0].remove();
+                    $('.card--form').hide();
+                    $('#form-steps-container').removeClass('d-none');
+                    addTagForm($collectionHolder);
                 });
             });
 
 
-            function addTagForm($collectionHolder, $newLinkLi) {
-                // Get the data-prototype explained earlier
-                let prototype = $collectionHolder.data('prototype');
+            function addTagForm($collectionHolder) {
 
-                // get the new index
-                let index = $collectionHolder.data('index');
+                let nbrTickets = $('#reservation_form_nbrTickets').val();
 
-                let newForm = prototype;
-                // You need this only if you didn't set 'label' => false in your tags field in TaskType
-                // Replace '__name__label__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                // newForm = newForm.replace(/__name__label__/g, index);
+                for(let i = 0; i < nbrTickets; i++) {
+                    // Get the data-prototype explained earlier
+                    let prototype = $collectionHolder.data('prototype');
 
-                // Replace '__name__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                newForm = newForm.replace(/__name__/g, index);
 
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
+                    // get the new index
+                    let index = $collectionHolder.data('index');
+                    let newForm = prototype;
+                    let visiteurTemplate = `<legend class="title-steps">Visiteur</legend>`;
+                    let removeFormA = `<div class="py-2"><a class="btn btn-danger remove" href="#">supprimer ce billet</a></div>`;
 
-                // Display the form in the page in an li, before the "Add a tag" link li
-                let $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
+                    // You need this only if you didn't set 'label' => false in your tags field in TicketType
+                    // Replace '__name__label__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    // newForm = newForm.replace(/__name__label__/g, index);
+
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    newForm = newForm.replace(/__name__/g, index);
+
+                    // increase the index with one for the next item
+                    $collectionHolder.data('index', index + 1);
+
+                    let frag = document.createRange().createContextualFragment('<fieldset class="visitor">' + visiteurTemplate + newForm + removeFormA + '</fieldset>');
+
+                    // Display the form in the page in an visitor container, before the "Supprimer ce billet" link
+                    let newFormElement = $('.tab')[0].append(frag);
+
+                    // Ad new visitor form element
+                    $collectionHolder.append(newFormElement);
+
+                    // add a delete link to all first+ of the existing forms elements
+                    $collectionHolder.find('.visitor').each(function() {
+                        addFormDeleteLink($(this));
+
+                    });
+
+                }
+
+                $('.remove')[0].remove();
+            }
+
+
+            function addFormDeleteLink(collectionFormElmt) {
+                let removeFormA = $('.remove');
+
+//                collectionFormElmt.append(removeFormA);
+
+                removeFormA.on('click', function(e) {
+                    e.preventDefault();
+                    // remove the visitor form
+//                    collectionFormElmt.remove();
+                    e.target.parentElement.parentElement.remove()
+
+                });
             }
 
         </script>
