@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reservation | {{ parent() }} {% endblock %}
-{% form_theme form._nbrTickets 'bootstrap_4_layout.html.twig' %}
+{% form_theme form.tickets 'bootstrap_4_layout.html.twig' %}
 {% block body %}
     <main class="container">
         {{ form_start(form) }}
@@ -38,11 +38,7 @@
 
         </div>
 
-        {#<ul class="tags" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">#}
-
-        {#</ul>#}
-
-        <div class="form-container d-none" id="form-steps-container" data-prototype="{{ form_widget(form._nbrTickets.vars.prototype)|e('html_attr') }}">
+        <div class="form-container d-none" id="form-steps-container" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e('html_attr') }}">
 
             <div class="steps-container">
                 <a href="#" class="step"><span>1</span> Infos personnelles</a>

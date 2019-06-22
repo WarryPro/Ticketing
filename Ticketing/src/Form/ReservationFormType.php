@@ -38,7 +38,7 @@ class ReservationFormType extends AbstractType
                 'attr' => ['min' => 1, 'max' => 10,]
             ])
 
-            ->add('_nbrTickets', CollectionType::class, [
+            ->add('tickets', CollectionType::class, [
                 'entry_type'    => TicketFormType::class,
                 'allow_add'     => true,
                 'allow_delete'  => true,

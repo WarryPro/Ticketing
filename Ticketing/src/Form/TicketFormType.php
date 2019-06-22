@@ -11,6 +11,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Ticket;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,7 +47,18 @@ class TicketFormType extends AbstractType
                     'Votre nationalité' => '',
                     'Suisse' => 'CH','France' => 'FR','Italie' => 'IT','Autre' => 'autre', ],
                 'label' => false
-            ]);
+            ])
+
+            ->add('reduction', CheckboxType::class,array(
+                'label' => 'Tarif réduit (Vous devez presenter un justificatif à l\'entrée du musée)',
+                'label_attr' => array(
+                    'class' => 'col-form-label',
+                    'id' => 'reduction',
+                    'for' => 'reduction'),
+                'attr' => array(
+                    'class' => 'form-control'),
+                'required' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

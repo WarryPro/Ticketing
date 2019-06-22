@@ -26,6 +26,16 @@ class Ticket
      */
     private $demiJournee;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Buyer", inversedBy="tickets")
+     */
+    private $buyer;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $reduction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +61,30 @@ class Ticket
     public function setDemiJournee(int $demiJournee): self
     {
         $this->demiJournee = $demiJournee;
+
+        return $this;
+    }
+
+    public function getBuyer(): ?Buyer
+    {
+        return $this->buyer;
+    }
+
+    public function setBuyer(?Buyer $buyer): self
+    {
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    public function getReduction(): ?bool
+    {
+        return $this->reduction;
+    }
+
+    public function setReduction(?bool $reduction): self
+    {
+        $this->reduction = $reduction;
 
         return $this;
     }
