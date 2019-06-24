@@ -20,10 +20,6 @@
   .form-radio-container{
     display: flex;
     justify-content: space-between;
-    input[type="radio"] {
-      display: none;
-    }
-
     label {
       width: calc(50% - .5rem);
 
