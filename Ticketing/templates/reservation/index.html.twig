@@ -122,8 +122,10 @@
 
 
             function addTagForm($collectionHolder) {
-
+                // Count le nombre de tickets selectionnés dans le 1er form
                 let nbrTickets = $('#reservation_form_nbrTickets').val();
+                // Boutton pour ajouter une autre collection du form vistor
+                let btnVisitorAdd = document.createRange().createContextualFragment('<div class="py-2"><a class="btn btn-secondary add" href="#">Ajouter un autre billet</a></div>');
 
                 for(let i = 0; i < nbrTickets; i++) {
                     // Get the data-prototype explained earlier
@@ -144,11 +146,11 @@
                     // Replace '__name__' in the prototype's HTML to
                     // instead be a number based on how many items we have
                     newForm = newForm.replace(/__name__/g, index);
-                    console.log(newForm);
+
                     // increase the index with one for the next item
                     $collectionHolder.data('index', index + 1);
 
-                    let frag = document.createRange().createContextualFragment('<fieldset class="visitor">' + visiteurTemplate + newForm + removeFormA + '</fieldset>');
+                    let frag = document.createRange().createContextualFragment(`<fieldset class="visitor"> ${visiteurTemplate} ${newForm} ${removeFormA} </fieldset>`);
 
                     // Display the form in the page in an visitor container, before the "Supprimer ce billet" link
                     let newFormElement = $('.tab')[0].append(frag);
@@ -158,25 +160,23 @@
 
                     // add a delete link to all first+ of the existing forms elements
                     $collectionHolder.find('.visitor').each(function() {
-                        addFormDeleteLink($(this));
+                        addFormDeleteLink();
 
                     });
 
                 }
-
+                // Ajout btn addvisitor dans le form
+                $('.tab')[0].append(btnVisitorAdd);
                 $('.remove')[0].remove();
             }
 
 
-            function addFormDeleteLink(collectionFormElmt) {
+            function addFormDeleteLink() {
                 let removeFormA = $('.remove');
-
-//                collectionFormElmt.append(removeFormA);
 
                 removeFormA.on('click', function(e) {
                     e.preventDefault();
                     // remove the visitor form
-//                    collectionFormElmt.remove();
                     e.target.parentElement.parentElement.remove()
 
                 });
