@@ -97,12 +97,11 @@
         <script>
             let $collectionHolder;
 
-            // setup an "add a tag" link
+            // setup an "add a form" button
             let $addFormButton = $('#add-form');
-//            let $newLinkLi = $('<li></li>').append($addTagButton);
 
             jQuery(document).ready(function() {
-                // Get the ul that holds the collection of tags
+                // Get the container that holds the collection of forms
                 $collectionHolder = $('.form-container');
 
                 // count the current form inputs we have (e.g. 2), use that as the new
@@ -110,68 +109,83 @@
                 $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
                 $addFormButton.on('click', function(e) {
-                    // add a new tag form (see next code block)
                     e.preventDefault();
+                    // Count le nombre de tickets selectionnés dans le 1er form
+                    let nbrTickets = $('#reservation_form_nbrTickets').val();
 
-                    if($('.visitor')[0]) $('.visitor')[0].remove();
+
+//                    s'il existe un billet il va le supp pour mettre à jour le nouveau nombre de billets
+                    if($('.visitor')[0]) {
+                        $('.visitor')[0].remove();
+                    }
+
                     $('.card--form').hide();
                     $('#form-steps-container').removeClass('d-none');
-                    addTagForm($collectionHolder);
+
+                    // add a new form
+                    for(let i = 0; i < nbrTickets; i++) {
+
+                        addCollectionForm($collectionHolder);
+
+                    }
+                    $('.remove')[0].remove(); // Remove btn "Supprimer ce billet" du 1er element
+
+                    addNewVisitorForm($collectionHolder); // Add un nouveau billet visitor si btn 'ajouter un autre billet' existe
+
                 });
+
             });
 
 
-            function addTagForm($collectionHolder) {
-                // Count le nombre de tickets selectionnés dans le 1er form
-                let nbrTickets = $('#reservation_form_nbrTickets').val();
+            function addCollectionForm($collectionHolder) {
+                // Get the data-prototype explained earlier
+                let prototype = $collectionHolder.data('prototype');
                 // Boutton pour ajouter une autre collection du form vistor
-                let btnVisitorAdd = document.createRange().createContextualFragment('<div class="py-2"><a class="btn btn-secondary add" href="#">Ajouter un autre billet</a></div>');
+                let btnVisitorAdd = document.createRange().createContextualFragment(`<div class="py-2"><a id="add-billet" class="btn btn-secondary add" href="#">Ajouter un autre billet</a></div>`);
+                // get the new index
+                let index = $collectionHolder.data('index');
+                let newForm = prototype;
+                let visiteurTemplate = `<legend class="title-steps">Visiteur</legend>`;
+                let removeFormA = `<div class="py-2"><a class="btn btn-danger remove" href="#">supprimer ce billet</a></div>`;
 
-                for(let i = 0; i < nbrTickets; i++) {
-                    // Get the data-prototype explained earlier
-                    let prototype = $collectionHolder.data('prototype');
+                // You need this only if you didn't set 'label' => false in your tags field in TicketType
+                // Replace '__name__label__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                // newForm = newForm.replace(/__name__label__/g, index);
 
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                newForm = newForm.replace(/__name__/g, index);
 
-                    // get the new index
-                    let index = $collectionHolder.data('index');
-                    let newForm = prototype;
-                    let visiteurTemplate = `<legend class="title-steps">Visiteur</legend>`;
-                    let removeFormA = `<div class="py-2"><a class="btn btn-danger remove" href="#">supprimer ce billet</a></div>`;
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
 
-                    // You need this only if you didn't set 'label' => false in your tags field in TicketType
-                    // Replace '__name__label__' in the prototype's HTML to
-                    // instead be a number based on how many items we have
-                    // newForm = newForm.replace(/__name__label__/g, index);
+                let frag = document.createRange().createContextualFragment(`<fieldset class="visitor"> ${visiteurTemplate} ${newForm} ${removeFormA} </fieldset>`);
 
-                    // Replace '__name__' in the prototype's HTML to
-                    // instead be a number based on how many items we have
-                    newForm = newForm.replace(/__name__/g, index);
+                // Display the form in the page in an visitor container, before the "Supprimer ce billet" link
+                let newFormElement = $('.tab')[0].append(frag);
 
-                    // increase the index with one for the next item
-                    $collectionHolder.data('index', index + 1);
+                // Ad new visitor form element
+                $collectionHolder.append(newFormElement);
+                $('.tab')[0].append(btnVisitorAdd); // Ajout btn addvisitor dans le form
+                collectionFormRemove();
 
-                    let frag = document.createRange().createContextualFragment(`<fieldset class="visitor"> ${visiteurTemplate} ${newForm} ${removeFormA} </fieldset>`);
-
-                    // Display the form in the page in an visitor container, before the "Supprimer ce billet" link
-                    let newFormElement = $('.tab')[0].append(frag);
-
-                    // Ad new visitor form element
-                    $collectionHolder.append(newFormElement);
-
-                    // add a delete link to all first+ of the existing forms elements
-                    $collectionHolder.find('.visitor').each(function() {
-                        addFormDeleteLink();
-
-                    });
-
-                }
-                // Ajout btn addvisitor dans le form
-                $('.tab')[0].append(btnVisitorAdd);
-                $('.remove')[0].remove();
             }
 
+            function addNewVisitorForm($collectionHolder) {
+                let addBillet = $('#add-billet');
 
-            function addFormDeleteLink() {
+                if(addBillet[0]) {
+                    $(addBillet).on('click', function(e) {
+                        e.preventDefault();
+
+                        addCollectionForm($collectionHolder) // Ajout un nouveau billet visitor
+                    })
+                }
+            }
+
+//            Remove un billet visitor
+            function collectionFormRemove() {
                 let removeFormA = $('.remove');
 
                 removeFormA.on('click', function(e) {
