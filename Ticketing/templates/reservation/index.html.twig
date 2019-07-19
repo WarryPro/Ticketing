@@ -52,6 +52,10 @@
             <div class="tab d-none">
                 <h2>Infos personnelles</h2>
 
+
+                <div id="add-container" class="py-2">
+                    <a id="add-billet" class="btn btn-secondary add" href="#">Ajouter un autre billet</a>
+                </div>
             </div>
 
             <div class="tab d-none">
@@ -140,8 +144,7 @@
             function addCollectionForm($collectionHolder) {
                 // Get the data-prototype explained earlier
                 let prototype = $collectionHolder.data('prototype');
-                // Boutton pour ajouter une autre collection du form vistor
-                let btnVisitorAdd = document.createRange().createContextualFragment(`<div class="py-2"><a id="add-billet" class="btn btn-secondary add" href="#">Ajouter un autre billet</a></div>`);
+
                 // get the new index
                 let index = $collectionHolder.data('index');
                 let newForm = prototype;
@@ -167,7 +170,9 @@
 
                 // Ad new visitor form element
                 $collectionHolder.append(newFormElement);
-                $('.tab')[0].append(btnVisitorAdd); // Ajout btn addvisitor dans le form
+                $(".visitor").insertBefore($('#add-container'));
+
+
                 collectionFormRemove();
 
             }
