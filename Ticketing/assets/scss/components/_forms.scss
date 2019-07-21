@@ -20,9 +20,14 @@ fieldset.visitor {
   grid-gap: 1rem;
 
   & .form-group {
+    flex-direction: column;
     margin-bottom: 0;
     &:last-child {
       grid-column: 1 / 3;
+      flex-direction: row;
+      label {
+        text-transform: initial;
+      }
     }
   }
 }

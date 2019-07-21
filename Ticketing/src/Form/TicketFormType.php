@@ -25,26 +25,26 @@ class TicketFormType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'attr' => ['placeholder' => 'Nom'],
-                'label' => false
+                'label' => 'Votre nom' // mettre en false pour desactiver le label
             ])
 
             ->add('prenom', TextType::class, [
                 'attr' => ['placeholder' => 'Prénom'],
-                'label' => false
+                'label' => 'Votre prénom'
             ])
 
             ->add('dateNaissance', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['min' => date('Y-m-d', strtotime('-120 years')),
                 'max' => date('Y-m-d', strtotime('-16 years'))],
-                'label' => false
+                'label' => 'Date de naissance'
             ])
 
             ->add('pays', ChoiceType::class, [
                 'choices' => [
-                    'Votre nationalité' => '',
+                    'Selectionner votre nationalité' => '',
                     'Suisse' => 'CH','France' => 'FR','Italie' => 'IT','Autre' => 'autre', ],
-                'label' => false
+                'label' => 'Votre nationalité'
             ])
 
             ->add('reduction', CheckboxType::class,array(
