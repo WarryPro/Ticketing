@@ -18,7 +18,9 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('forms-validate', './assets/js/forms-validate.js')
     .addEntry('form-steps', './assets/js/form-steps.js')
+    .addEntry('form-colletion', './assets/js/form-colletion.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     .copyFiles({
@@ -72,7 +74,7 @@ Encore
     //.enableIntegrityHashes()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
