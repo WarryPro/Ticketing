@@ -1,4 +1,7 @@
 {
+    "checkdomain/holiday": {
+        "version": "3.1.4"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

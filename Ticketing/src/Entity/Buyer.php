@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\CloseDay;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BuyerRepository")
@@ -70,6 +71,8 @@ class Buyer
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual("today UTC", message="Vous ne pouvez pas réservez pour les jours passés")
+     * @CloseDay()
      */
     private $dateVisite;
 

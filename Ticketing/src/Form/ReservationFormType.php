@@ -11,6 +11,7 @@ use App\Entity\Buyer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -44,7 +45,8 @@ class ReservationFormType extends AbstractType
                 'allow_delete'  => true,
                 'prototype'     => true,
                 'by_reference'  => false
-            ]);
+            ])->add('nextStep', SubmitType::class)
+            ->add('previousStep', SubmitType::class);
 
     }
 

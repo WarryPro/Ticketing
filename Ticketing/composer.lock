@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e51639986e187c1ea6880f7bba904a87",
+    "content-hash": "9d2b58a105e7fa0bc6c47d003d5dba7e",
     "packages": [
+        {
+            "name": "checkdomain/holiday",
+            "version": "3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/checkdomain/Holiday.git",
+                "reference": "65c5b29d7eef4def50ab3ce817873647f2972ddd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/checkdomain/Holiday/zipball/65c5b29d7eef4def50ab3ce817873647f2972ddd",
+                "reference": "65c5b29d7eef4def50ab3ce817873647f2972ddd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-calendar": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Checkdomain\\Holiday\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Paap",
+                    "email": "b.paap@checkdomain.de",
+                    "homepage": "http://checkdomain.de"
+                }
+            ],
+            "description": "Checkdomain/Holiday provides a simple class to get holidays for a specified country",
+            "keywords": [
+                "holiday"
+            ],
+            "time": "2018-10-29T20:30:20+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.6.1",
