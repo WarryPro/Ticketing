@@ -14,7 +14,17 @@
                 <!-- Type input-->
                 <div>
                     <h5 class="card-title">Type de billet</h5>
-                    {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container"}}) }}
+                    {% set row = { after14h: '14:00' } %}
+                    {% set dateFormat = 'H:i' %}
+
+                    {% if "now"|date('H:i') < row.after14h|date(dateFormat) %}
+
+                        {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container"}}) }}
+
+                    {% else %}
+                        {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container complet"}}) }}
+                        <small>Le billet <b>Journée</b> n'est pas disponible à partir de 14h00</small>
+                    {% endif %}
                 </div>
 
                 <hr>
@@ -32,10 +42,10 @@
                 </div>
 
                 <hr>
-                <button id="add-form" class="btn btn-primary btn-block">Réserver</button>
+                {{ form_widget(form.children.Suivant) }}
+                <!--<button id="add-form" class="btn btn-primary btn-block">Réserver</button>-->
 
             </div>
-
         </div>
 
         <div class="form-container d-none" id="form-steps-container" data-prototype="{{ form_widget(form.tickets.vars.prototype, {'attr': {'class': 'visitor__reservation'} })|e('html_attr') }}">

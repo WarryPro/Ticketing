@@ -11,11 +11,12 @@ use App\Entity\Buyer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class ReservationFormType extends AbstractType
 {
@@ -45,8 +46,21 @@ class ReservationFormType extends AbstractType
                 'allow_delete'  => true,
                 'prototype'     => true,
                 'by_reference'  => false
-            ])->add('nextStep', SubmitType::class)
-            ->add('previousStep', SubmitType::class);
+            ])
+            ->add('Suivant', SubmitType::class, [
+                    'attr' => ['id' => 'add-form', 'class' => 'btn btn-primary btn-block']
+            ]);
+
+
+        if($options['after14hours']->format('H-i') >= '14:00') {
+            $builder
+                ->add('typeTarif', ChoiceType::class, [
+                    'choices' => [
+                        'Demi-journée' => 1,
+                    ],
+                    'expanded' => true, // Pour afficher en radio buttons
+                ]);
+        }
 
     }
 
@@ -54,7 +68,9 @@ class ReservationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Buyer::class,
+            'after14hours' => new \DateTime(),
         ]);
+
     }
 
 

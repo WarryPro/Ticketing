@@ -25,7 +25,7 @@ function validateCardInputs() {
 let $collectionHolder;
 
 // setup an "add a form" button
-let $addFormButton = $('#add-form');
+let $addFormButton = $('#reservation_form_Suivant');
 
 jQuery(document).ready(function() {
     // Get the container that holds the collection of forms

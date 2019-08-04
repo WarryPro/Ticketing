@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReservationController extends AbstractController
 {
@@ -71,15 +72,13 @@ class ReservationController extends AbstractController
             ->add('typeTarif', ChoiceType::class, [
                 'choices' => [
                     'Choisir billet' => '',
-                    'Journée' => 0,
+                    'Journée' => [0, 'attr' => ['disabled' => true]],
                     'Demi-journée' => 1,
                 ]
             ])
             ->add('nbrTickets', IntegerType::class, [
                 'attr' => ['min' => 1, 'max' => 10,]
             ])
-
-
             ->getForm();
 
         $form -> handleRequest($request);

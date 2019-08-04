@@ -6,6 +6,12 @@
   text-transform: uppercase;
 }
 
+small {
+  font-size: .7rem;
+  text-transform: initial;
+  color: rgba(black, .5);
+}
+
 .card--form {
   max-width: 350px;
   label, input {
@@ -53,6 +59,11 @@
     }
   }
 
+  .form-radio-container.complet {
+    label {
+      width: 100%;
+    }
+  }
   .form-group {
     display: flex;
     justify-content: space-between;
