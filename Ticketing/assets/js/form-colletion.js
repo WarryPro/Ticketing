@@ -9,12 +9,31 @@ function validateCardInputs() {
     for(let i = 0; i < inputs.length; i++) {
 
         if(inputs[i].value === "") {
-            alert('Il faut remplir tous les champs!')
+            alert('Il faut remplir tous les champs!');
             return false;
+        }
+        if(inputs[i].getAttribute("type") === "date") {
+            let dateVisite = inputs[i].value;
+            let now = new Date(), year = now.getFullYear(), month = (now.getMonth()+1), day = now.getDate();
+
+            now = new Date(year + '-' + month + '-' + day);
+            dateVisite = new Date(dateVisite);
+
+            if(dateVisite < now) {
+                console.log(dateVisite, now);
+                alert("Vous ne pouvez pas reserver pour les jours passés!");
+            }
+
+            // if(day < 10) day = '0'+ day;
+            // if(month < 10) month = '0'+month;
+
+            // now = year + '-' + month + '-' + day;
+
+
         }
     }
     if(!radios[0].checked && !radios[1].checked) {
-        alert('Il faut choisir le type de billet')
+        alert('Il faut choisir le type de billet');
         return false;
     }
     return true
