@@ -28,8 +28,6 @@ function validateCardInputs() {
             // if(month < 10) month = '0'+month;
 
             // now = year + '-' + month + '-' + day;
-
-
         }
     }
     if(!radios[0].checked && !radios[1].checked) {

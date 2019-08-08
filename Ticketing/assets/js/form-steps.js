@@ -53,6 +53,8 @@ function nextPrev(n) {
     // Otherwise, display the correct tab:
     showTab(currentTab);
     fixStepIndicator(currentTab);
+    getTypebillet();
+    // getNombreVisitors(); // obtain le nombre de billets
 }
 
 function validateForm() {
@@ -111,14 +113,47 @@ function fixStepIndicator(n) {
     step[n].classList.add("active");
 }
 
-function validInteger() {
-    let inputInteger = document.querySelector("[data-integer]");
 
-    if(inputInteger !== null) {
-        inputInteger.addEventListener("blur", (e) => {
-            if(!Number.isInteger(parseInt(e.target.value))) {
-                inputInteger.classList.add("invalid");
-            }
-        })
-    }
+
+function getNombreVisitors() {
+    let visitors = document.querySelectorAll(".visitor");
+    return visitors.length;
 }
+
+
+// details commande
+function getTypebillet() {
+    const formCard = document.getElementById("form-card");
+    let nbrBillets = document.getElementById("nbr-billets"),
+        inputReduction = document.querySelectorAll('.visitor input[type="checkbox"]:checked'),
+        inputTypeBillet = formCard.querySelector("input[type='radio']:checked"),
+        inputDateVisite = formCard.querySelector("input[type='date']");
+
+
+    if(inputTypeBillet.value === '0') {
+        document.getElementById("type-billet").textContent = 'Type de billet: Journée';
+    }else {
+        document.getElementById("type-billet").textContent = 'Type de billet: Demi-journée';
+    }
+    if(inputReduction.length > 0){
+       document.getElementById("billet-reduit").textContent = 'Billet avec réduction: ' + inputReduction.length;
+    }else {document.getElementById("billet-reduit").textContent = 'Billet avec réduction: Non' }
+
+    nbrBillets.textContent = 'Nombre de billets: ' + getNombreVisitors();
+    document.getElementById("date-visite-billet").textContent = 'Date de visite: ' + inputDateVisite.value;
+}
+
+
+// function validInteger() {
+//     let inputInteger = document.querySelector("[data-integer]");
+//
+//     if(inputInteger !== null) {
+//         inputInteger.addEventListener("blur", (e) => {
+//             if(!Number.isInteger(parseInt(e.target.value))) {
+//                 inputInteger.classList.add("invalid");
+//             }
+//         })
+//     }
+// }
+
+
