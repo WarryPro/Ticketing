@@ -36,7 +36,10 @@ function nextPrev(n) {
     // This function will figure out which tab to display
     let tab = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
-    if (n === 1 && !validateForm()) return false;
+    if (n === 1 && !validateForm()) {
+        document.querySelector("form").classList.add("was-validated");
+        return false
+    }
     // Hide the current tab:
     tab[currentTab].classList.add("d-none");
     // Increase or decrease the current tab by 1:
