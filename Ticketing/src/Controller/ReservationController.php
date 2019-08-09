@@ -22,6 +22,25 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class ReservationController extends AbstractController
 {
     /**
+     * @var $objectManager
+     */
+    private $objectManager;
+
+    /**
+     * @var $stripeService
+     */
+    private $stripeService;
+
+    /**
+     * @var $priceCalcul
+     */
+    private $priceCalcul;
+
+//    public function __construct(ObjectManager $objectManager, StripeService $stripeService, PriceCalcul $priceCalcul)
+//    {
+//    }
+
+    /**
      * @Route("/reservation", name="reservation")
      */
     public function index(Request $request, Session $session)

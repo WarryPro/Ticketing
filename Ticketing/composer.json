@@ -8,6 +8,7 @@
         "checkdomain/holiday": "^3.1",
         "doctrine/annotations": "^1.6",
         "sensio/framework-extra-bundle": "^5.1",
+        "stripe/stripe-php": "^6.41",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
         "symfony/dotenv": "4.2.*",
