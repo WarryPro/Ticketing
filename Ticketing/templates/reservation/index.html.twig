@@ -52,7 +52,7 @@
                 <a href="#" class="step"><span>1</span> Infos personnelles</a>
                 <a href="#" class="step"><span>2</span> Détails de la commande</a>
                 <a href="#" class="step"><span>3</span> Paiement</a>
-                <a href="#" class="step"><span>4</span> Confirmation</a>
+                {#<a href="#" class="step"><span>4</span> Confirmation</a>#}
             </div>
 
 
@@ -80,13 +80,14 @@
                 </div>
             </div>
 
-            <div class="tab d-none">
+            <div class="tab d-none stripe-content">
                 <h2>Vos Paiement</h2>
+                <div id="payment-container"></div>
             </div>
 
-            <div class="tab d-none">
-                <h2>Confirmation</h2>
-            </div>
+            {#<div class="tab d-none">#}
+                {#<h2>Confirmation</h2>#}
+            {#</div>#}
 
 
             {#bouttons étapes#}
@@ -102,17 +103,18 @@
 
     {% block javascript %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://js.stripe.com/v3/"></script>
         {{ encore_entry_script_tags('forms-validate') }}
         {{ encore_entry_script_tags('form-steps') }}
         {{ encore_entry_script_tags('form-colletion') }}
 
-        <script>
-            window.location.hash = "no-back-button";
-            window.location.hash = "Again-No-back-button";// cette ligne pour google chrome
-            window.onhashchange = function(){
-                window.location.hash="no-back-button";
-            }
-        </script>
+        {#<script>#}
+            {#window.location.hash = "no-back-button";#}
+            {#window.location.hash = "Again-No-back-button";// cette ligne pour google chrome#}
+            {#window.onhashchange = function(){#}
+                {#window.location.hash="no-back-button";#}
+            {#}#}
+        {#</script>#}
 
 
 
