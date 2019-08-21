@@ -4,12 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Buyer;
 use App\Form\ReservationFormType;
-use App\Form\TicketFormType;
 use Doctrine\Common\Persistence\ObjectManager;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +13,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Service\StripeService;
+use App\Service\PriceCalcul;
 
 class ReservationController extends AbstractController
 {
@@ -36,40 +35,71 @@ class ReservationController extends AbstractController
      */
     private $priceCalcul;
 
-//    public function __construct(ObjectManager $objectManager, StripeService $stripeService, PriceCalcul $priceCalcul)
-//    {
-//    }
-
-    /**
-     * @Route("/reservation", name="reservation")
-     */
-    public function index(Request $request, Session $session)
+    public function __construct(ObjectManager $objectManager, StripeService $stripeService, PriceCalcul $priceCalcul)
     {
-        $ticket = new Buyer();
-
-        $form = $this -> createForm(ReservationFormType::class, $ticket);
-        $form -> handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $session -> set('reservation', $ticket);
-            dump($session->get('reservation')->getNbrTickets());
-
-            return $this -> redirectToRoute('ticket');
-        }
-
-        return $this->render('reservation/index.html.twig', [
-            'controller_name' => 'ReservationController',
-            'form' => $form -> createView(),
-        ]);
+        $this -> priceCalcul = $priceCalcul;
+        $this -> objectManager = $objectManager;
+        $this -> stripeService = $stripeService;
     }
 
 
     /**
-    * @Route("/reservation/ticket", name="ticket")
-    * @Route({"GET", "POST"}) //@Method changée par route
-    */
-    public function create(Request $request, ObjectManager $manager)
+     * @Route("/reservation", name="reservation")
+     * @param Request $request
+     * @param Session $session
+     * @return Response
+     * @Route({"GET", "POST"})
+     */
+    public function index(Request $request, Session $session)
     {
+        if ($session->get('reservation') == null) {
+            return $this->redirectToRoute('accueil');
+        }
+        $reservation = $session->get('reservation');
+        $total = $this->priceCalcul->priceCalcul($reservation);
+
+        if ($request->get('stripeEmail')) {
+            $reservation->setEmail($request->request->get('stripeEmail'));
+            $payment = $this->stripeService->stripePayment($total, $request->get('stripeToken')); // obtained with Stripe.js
+            if ($payment == true) {
+                $session->set("paiement", true);
+                $this->objectManager->persist($reservation);
+                $this->objectManager->flush();
+                return $this->redirectToRoute('homepage');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue, merci de réessayer.');
+            }
+        }
+        $session->set('reservation', $reservation);
+        return $this->render('reservation/tickets.html.twig', [
+            'reservation' => $reservation,
+            'total' => $total
+        ]);
+
+//        verion card form
+//        $ticket = new Buyer();
+//        $form = $this -> createForm(ReservationFormType::class, $ticket);
+//        $form -> handleRequest($request);
+//
+//        if($form->isSubmitted() && $form->isValid()) {
+//            $session -> set('reservation', $ticket);
+//
+//            return $this -> redirectToRoute('ticket');
+//        }
+//
+//        return $this->render('reservation/index.html.twig', [
+//            'form' => $form -> createView(),
+//        ]);
+    }
+
+
+    /**
+        * @Route("/reservation/ticket", name="ticket")
+        * @Route({"GET", "POST"}) //@Method changée par route
+    */
+    public function create(Request $request, ObjectManager $manager, Session $session)
+    {
+        dump($request, $session);
         $ticket = new Buyer();
 
         $form = $this -> createFormBuilder($ticket)

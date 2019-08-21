@@ -91,6 +91,11 @@ class Buyer
      */
     private $tickets;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
+
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
@@ -260,6 +265,18 @@ class Buyer
                 $ticket->setBuyer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

@@ -6,7 +6,7 @@
  * Time: 01:09
  */
 
-namespace App;
+namespace App\Service;
 
 use App\Entity\Buyer;
 use Stripe;
@@ -14,16 +14,18 @@ use Stripe;
 
 class StripeService
 {
-    public function stripePayment($token, $total) {
+    public function stripePayment($total, $token) {
 
-        \Stripe\Stripe::setApiKey("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+        \Stripe\Stripe::setApiKey("sk_test_gmnVOhvq1HZO22IGBuRaCeqy00IRR2WwN0");
 
         $charge = \Stripe\Charge::create([
-            "amount" => $total,
+
+            "amount" => $total*100,
             "currency" => "eur",
             "source" => $token, // obtained with Stripe.js
-            "description" => "Billet online Musée du Louvre"
+            "description" => "Billet online Musée du Louvre",
         ]);
+
 
         if($charge instanceof Stripe\Charge && $charge->paid === true) return true;
         return false;
