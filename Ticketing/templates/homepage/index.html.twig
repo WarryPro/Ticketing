@@ -1,9 +1,126 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme form.tickets 'bootstrap_4_layout.html.twig' %}
 {% block title %}Billeterie du Louvre | {{ parent() }} {% endblock %}
 
 {% block body %}
     {% block carousel %}
         {{ include('/partials/_homepage-carousel.html.twig') }}
+    {% endblock %}
+
+    {% block formcard %}
+        <main class="container">
+            {{ form_start(form) }}
+            <div id="form-card" class="card card--form text-center">
+                <img src="{{ asset('build/images/ticket.jpg') }}" alt="" class="card-img-top hero-image">
+
+                <div class="card-body">
+
+
+                    <!-- Type input-->
+                    <div>
+                        <h5 class="card-title">Type de billet</h5>
+                        {% set row = { after14h: '14:00' } %}
+                        {% set dateFormat = 'H:i' %}
+
+                        {% if "now"|date('H:i') < row.after14h|date(dateFormat) %}
+
+                            {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container"}}) }}
+
+                        {% else %}
+                            {{ form_widget(form.typeTarif, {'attr': {'class': "form-radio-container complet"}}) }}
+                            <small>Le billet <b>Journée</b> n'est pas disponible à partir de 14h00</small>
+                        {% endif %}
+                    </div>
+
+                    <hr>
+                    <!-- Date input - Nombre input-->
+                    <div class="form-group ">
+                        <div>
+                            <h5 class="card-title">Date de visite</h5>
+                            {{ form_widget(form.dateVisite) }}
+                        </div>
+
+                        <div>
+                            <h5 class="card-title">Nombre de billets</h5>
+                            {{ form_widget(form.nbrTickets, {'attr': {'value': "1"}}) }}
+                        </div>
+                    </div>
+
+                    <hr>
+                    {{ form_widget(form.children.Suivant) }} <!-- Boutton suivant -->
+                </div>
+            </div>
+
+            <div class="form-container d-none" id="form-steps-container" data-prototype="{{ form_widget(form.tickets.vars.prototype, {'attr': {'class': 'visitor__reservation'} })|e('html_attr') }}">
+
+                <div class="steps-container">
+                    <a href="#" class="step"><span>1</span> Infos personnelles</a>
+                    <a href="#" class="step"><span>2</span> Détails de la commande</a>
+                    <a href="#" class="step"><span>3</span> Paiement</a>
+                    {#<a href="#" class="step"><span>4</span> Confirmation</a>#}
+                </div>
+
+
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab d-none">
+                    <h2>Infos personnelles</h2>
+
+
+                    <div id="add-container" class="py-2">
+                        <a id="add-billet" class="btn btn-secondary add" href="#" onclick="validateCardInputs()">Ajouter un autre billet</a>
+                    </div>
+                </div>
+
+                <div class="tab d-none">
+                    <h2>Détails de la commande</h2>
+                    <div class="form-group">
+
+                        <div id="details-commande">
+                            <p id="date-visite-billet">Date de visite: </p>
+                            <p id="type-billet">Type de billet: </p>
+                            <p id="nbr-billets">Nombre de billets: </p>
+                            <p id="billet-reduit">Billet avec rédution: </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                {#<div class="tab d-none stripe-content">#}
+                    {#<h2>Vos Paiement</h2>#}
+                    {#<div id="payment-container"></div>#}
+                {#</div>#}
+
+                {#<div class="tab d-none">#}
+                {#<h2>Confirmation</h2>#}
+                {#</div>#}
+
+
+                {#bouttons étapes#}
+                <div class="steps-container">
+                    <button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>
+                    <button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>
+                </div>
+
+            </div>
+            {{ form_end(form) }}
+        </main>
+    {% endblock %}
+
+    {% block javascript %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        {{ encore_entry_script_tags('forms-validate') }}
+        {{ encore_entry_script_tags('form-steps') }}
+        {{ encore_entry_script_tags('form-colletion') }}
+
+        {#<script>#}
+        {#window.location.hash = "no-back-button";#}
+        {#window.location.hash = "Again-No-back-button";// cette ligne pour google chrome#}
+        {#window.onhashchange = function(){#}
+        {#window.location.hash="no-back-button";#}
+        {#}#}
+        {#</script>#}
+
+
+
     {% endblock %}
 {% endblock %}

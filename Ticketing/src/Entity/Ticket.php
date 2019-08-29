@@ -17,15 +17,15 @@ class Ticket
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $journee;
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//    private $journee;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $demiJournee;
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//    private $demiJournee;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Buyer", inversedBy="tickets")
@@ -71,29 +71,29 @@ class Ticket
         return $this->id;
     }
 
-    public function getJournee(): ?int
-    {
-        return $this->journee;
-    }
+//    public function getJournee(): ?int
+//    {
+//        return $this->journee;
+//    }
+//
+//    public function setJournee(int $journee): self
+//    {
+//        $this->journee = $journee;
+//
+//        return $this;
+//    }
 
-    public function setJournee(int $journee): self
-    {
-        $this->journee = $journee;
-
-        return $this;
-    }
-
-    public function getDemiJournee(): ?int
-    {
-        return $this->demiJournee;
-    }
-
-    public function setDemiJournee(int $demiJournee): self
-    {
-        $this->demiJournee = $demiJournee;
-
-        return $this;
-    }
+//    public function getDemiJournee(): ?int
+//    {
+//        return $this->demiJournee;
+//    }
+//
+//    public function setDemiJournee(int $demiJournee): self
+//    {
+//        $this->demiJournee = $demiJournee;
+//
+//        return $this;
+//    }
 
     public function getBuyer(): ?Buyer
     {

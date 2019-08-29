@@ -53,14 +53,16 @@ class ReservationController extends AbstractController
     public function index(Request $request, Session $session)
     {
         if ($session->get('reservation') == null) {
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('/');
         }
         $reservation = $session->get('reservation');
         $total = $this->priceCalcul->priceCalcul($reservation);
+        dump($reservation);
 
         if ($request->get('stripeEmail')) {
             $reservation->setEmail($request->request->get('stripeEmail'));
             $payment = $this->stripeService->stripePayment($total, $request->get('stripeToken')); // obtained with Stripe.js
+
             if ($payment == true) {
                 $session->set("paiement", true);
                 $this->objectManager->persist($reservation);
@@ -71,7 +73,7 @@ class ReservationController extends AbstractController
             }
         }
         $session->set('reservation', $reservation);
-        return $this->render('reservation/tickets.html.twig', [
+        return $this->render('reservation/index.html.twig', [
             'reservation' => $reservation,
             'total' => $total
         ]);
