@@ -92,6 +92,11 @@ class Buyer
      */
     private $tickets;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $Total;
+
 
     public function __construct()
     {
@@ -264,6 +269,18 @@ class Buyer
                 $ticket->setBuyer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->Total;
+    }
+
+    public function setTotal(float $Total): self
+    {
+        $this->Total = $Total;
 
         return $this;
     }

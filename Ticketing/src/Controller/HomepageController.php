@@ -46,6 +46,7 @@ class HomepageController extends AbstractController
 
         return $this->render('homepage/index.html.twig', [
             'form' => $form -> createView(),
+            'reservation' => $ticket,
         ]);
 //        return $this->render('homepage/index.html.twig', [
 //            'controller_name' => 'HomepageController',

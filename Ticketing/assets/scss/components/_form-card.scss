@@ -85,3 +85,20 @@ small {
     margin: 0;
   }
 }
+
+.checkout {
+  > p {
+    padding: .5rem 0;
+  }
+  > p, > hr {
+    font-weight: 600;
+    margin: 0;
+  }
+  p {
+    color: var(--gray);
+  }
+}
+
+.stripe-button-el {
+  width: 100%;
+}

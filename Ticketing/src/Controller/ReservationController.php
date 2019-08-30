@@ -62,9 +62,9 @@ class ReservationController extends AbstractController
         if ($request->get('stripeEmail')) {
             $reservation->setEmail($request->request->get('stripeEmail'));
             $payment = $this->stripeService->stripePayment($total, $request->get('stripeToken')); // obtained with Stripe.js
-
             if ($payment == true) {
                 $session->set("paiement", true);
+                $reservation->setTotal($total);
                 $this->objectManager->persist($reservation);
                 $this->objectManager->flush();
                 return $this->redirectToRoute('homepage');
