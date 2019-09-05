@@ -77,21 +77,6 @@ class ReservationController extends AbstractController
             'reservation' => $reservation,
             'total' => $total
         ]);
-
-//        verion card form
-//        $ticket = new Buyer();
-//        $form = $this -> createForm(ReservationFormType::class, $ticket);
-//        $form -> handleRequest($request);
-//
-//        if($form->isSubmitted() && $form->isValid()) {
-//            $session -> set('reservation', $ticket);
-//
-//            return $this -> redirectToRoute('ticket');
-//        }
-//
-//        return $this->render('reservation/index.html.twig', [
-//            'form' => $form -> createView(),
-//        ]);
     }
 
 
