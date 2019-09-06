@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1>Confirmation de réservation</h1>
+        <p>Merci de votre achat, vous allez recevoir la confirmation sur l'adresse email <strong> {{ reservation.email }}</strong></p>
+        <div>
+            <p>Resumé de votre commande</p>
+            <ul>
+                <li>code de reservation: {{ reservation.codeReservation }}</li>
+                <li>Nombre de billets: {{ reservation.nbrTickets }}</li>
+                <li>Type de billet:
+                        {% if(reservation.typeTarif == "1") %}
+                            Demi-journée
+                        {% endif %}
+                        {% if(reservation.typeTarif == "0") %}
+                            Journalière
+                        {% endif %}
+                </li>
+
+                <li>Date de visite: {{ reservation.dateVisite | date("d/m/Y") }}</li>
+                <li>Si vous avez acheté des billet à tarif reduit, pensez à vos justificatifs pour les présenter à l'entrée du musée</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

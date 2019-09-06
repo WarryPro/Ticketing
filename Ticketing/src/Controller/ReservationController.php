@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Service\StripeService;
 use App\Service\PriceCalcul;
+use Swift_Mailer;
+use Swift_Message;
 
 class ReservationController extends AbstractController
 {
@@ -47,10 +49,11 @@ class ReservationController extends AbstractController
      * @Route("/reservation", name="reservation")
      * @param Request $request
      * @param Session $session
+     * @param Swift_Mailer $mailer
      * @return Response
      * @Route({"GET", "POST"})
      */
-    public function index(Request $request, Session $session)
+    public function index(Request $request, Session $session, Swift_Mailer $mailer)
     {
         if ($session->get('reservation') == null) {
             return $this->redirectToRoute('/');
@@ -67,7 +70,21 @@ class ReservationController extends AbstractController
                 $reservation->setTotal($total);
                 $this->objectManager->persist($reservation);
                 $this->objectManager->flush();
-                return $this->redirectToRoute('homepage');
+
+                $message = (new Swift_Message('Confirmation de commande - Billet Musée du Louvre'))
+                    ->setFrom('dannyfr.03@gmail.com')
+                    ->setTo($reservation->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                        // templates/emails/registration.html.twig
+                            'emails/confirmation.html.twig',
+                            ['reservation' => $reservation]
+                        ),
+                        'text/html'
+                    );
+                $mailer -> send($message);
+
+                return $this->redirectToRoute('confirmation');
             } else {
                 $this->addFlash('error', 'Une erreur est survenue, merci de réessayer.');
             }
