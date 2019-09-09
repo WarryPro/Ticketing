@@ -2,9 +2,14 @@
 
 {% block title %}Reservation | {{ parent() }} {% endblock %}
 {% block body %}
-    <main class="container">
 
-        <div class="form-container" id="form-steps-container">
+    {% block carousel %}
+        {{ include('/partials/_homepage-carousel.html.twig') }}
+    {% endblock %}
+
+    <main class="container mb-5">
+
+        <div class="form-container mb-5" id="form-steps-container">
 
             <div class="steps-container">
                 <a href="#" class="step"><span>1</span> Infos personnelles</a>

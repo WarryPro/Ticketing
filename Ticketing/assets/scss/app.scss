@@ -15,4 +15,9 @@
 
 body {
     //background: var(--white);
+  color: $text-color;
+
+  ul {
+    list-style: none;
+  }
 }

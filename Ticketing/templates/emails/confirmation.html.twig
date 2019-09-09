@@ -56,32 +56,8 @@
         img.g-img + div {
             display: none !important;
         }
-        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-        /* Create one of these media queries for each additional viewport size you'd like to fix */
-        /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
-        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
-            u ~ div .email-container {
-                min-width: 320px !important;
-            }
-        }
-        /* iPhone 6, 6S, 7, 8, and X */
-        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
-            u ~ div .email-container {
-                min-width: 375px !important;
-            }
-        }
-        /* iPhone 6+, 7+, and 8+ */
-        @media only screen and (min-device-width: 414px) {
-            u ~ div .email-container {
-                min-width: 414px !important;
-            }
-        }
-    </style>
 
-    <!-- CSS Reset : END -->
 
-    <!-- Progressive Enhancements : BEGIN -->
-    <style>
         .bg_white{
             background: #ffffff;
         }
@@ -100,37 +76,13 @@
             line-height: 1.8;
             color: rgba(0,0,0,.4);
         }
-        a{
-            color: #f85e9f;
-        }
-        table{
-        }
         /*LOGO*/
         .logo h1{
             margin: 0;
         }
-        .logo h1 a{
-            color: #000000;
-            font-size: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-family: 'Lato', sans-serif;
-            border: 2px solid #000;
-            padding: .2em 1em;
-        }
-        .navigation li{
-            list-style: none;
-            display: inline-block;;
-            margin-left: 5px;
-            margin-right: 5px;
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .navigation li a{
-            color: rgba(0,0,0,1);
-        }
+
+
+
         /*HERO*/
         .hero{
             position: relative;
@@ -145,10 +97,6 @@
             margin-bottom: 0;
             font-weight: 300;
         }
-        .hero .text h2 span{
-            font-weight: 600;
-            color: #f85e9f;
-        }
         /*HEADING SECTION*/
 
         .heading-section h2{
@@ -160,7 +108,6 @@
         }
 
         .heading-section-white h2{
-            font-family:
             line-height: 1;
             padding-bottom: 0;
         }
@@ -168,26 +115,6 @@
             color: #ffffff;
         }
 
-        ul.social li{
-            display: inline-block;
-            margin-right: 10px;
-        }
-        /*FOOTER*/
-
-
-        .footer ul{
-            margin: 0;
-            padding: 0;
-        }
-        .footer ul li{
-            list-style: none;
-            margin-bottom: 10px;
-        }
-        .footer ul li a{
-            color: rgba(0,0,0,1);
-        }
-        @media screen and (max-width: 500px) {
-        }
     </style>
 
 
@@ -204,64 +131,57 @@
             <tr>
                 <td valign="top" class="bg_white" style="padding: 1em 2.5em 0 2.5em;">
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr style="background:black">
+                            <td class="logo">
+                                <img src="https://www.louvre.fr/sites/all/themes/louvre/img/data/logo-louvre.jpg"  class="d-inline-block align-top" alt="Logo musée du Louvre">
+                            </td>
+                        </tr>
                         <tr>
-                            <td class="logo" style="text-align: center;">
-                                <h1><a href="#">Billeterie du Musée du Louvre</a></h1>
+                            <td class="logo" style="text-align: center; padding: 1em 0 2em;">
+                                <h1><a href="#" style="text-align: center; color: #000000; font-size: 18px; font-weight: 700;
+                                      text-transform: uppercase; font-family: 'Lato', sans-serif; border: 2px solid #000;
+                                      padding: .2em 1em;">Billeterie du Musée du Louvre</a></h1>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr><!-- end tr -->
             <tr>
-                <td valign="top" class="bg_white" style="padding: 0;">
+                <td valign="top" class="bg_white" style="padding: 1em 0 0;">
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
-                            <td width="60%" class="logo" style="text-align: center;">
-                                <img src="{{ asset('build/images/logo_Louvre.png') }}"  class="d-inline-block align-top" alt="Logo musée du Louvre">
-                            </td>
-                            <td>
-                                Merci de votre achat. Vous trouverez votre/vos billet(s) ci-dessous:
-                            </td>
+                            <td style="text-align: center;">Merci de votre achat. Vous trouverez votre/vos billet(s) ci-dessous: </td>
                         </tr>
                     </table>
                 </td>
             </tr><!-- end tr -->
             <tr>
-                <td valign="middle" class="hero hero-2 bg_white" style="padding: 2em 0 4em 0;">
+                <td  class="hero hero-2 bg_white" style="padding: 1em 0;">
                     <table>
                         <tr>
                             <td>
-                                <div class="text" style="padding: 0 2.5em; text-align: center;">
+                                <div class="text" style="text-align: center; padding: 0 2.5em 0 2em;">
+                                    <p>Reservation fait le <strong>{{ reservation.dateReservation | date('d/m/Y') }}</strong></p>
                                     <p>Code de reservation <strong>{{ reservation.codeReservation }}</strong></p>
                                     <p>Date de visite <strong>{{ reservation.dateVisite | date('d/m/Y') }}</strong></p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="text" style="padding: 0 2.5em; text-align: center;">
+
                                     {% for index, ticket in reservation.tickets %}
-                                        <p>Billet {{ index + 1 }}: <strong>{{ ticket.prenom }} {{ ticket.nom }}</strong></p>
-                                        <p>{{ ticket.dateNaissance | date('d/m/Y')}}</p>
+                                        <p>Billet {{ index + 1 }}: <strong>{{ ticket.prenom }} {{ ticket.nom }}</strong> - <span>{{ ticket.dateNaissance | date('d/m/Y')}}</span></p>
                                         <p>
                                             {% if(ticket.reduction) %}
                                                 Prix reduit
-                                                {% else %}
-                                                    Prix entier
+                                            {% else %}
+                                                Prix entier
                                             {% endif %}
                                         </p>
                                         <p>{{ ticket.tarif }}.00 €</p>
                                     {% endfor %}
-
                                 </div>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr><!-- end tr -->
-
-
-            <!-- 1 Column Text + Button : END -->
         </table>
     </div>
 </center>
