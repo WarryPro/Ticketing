@@ -52,15 +52,15 @@ class ReservationFormType extends AbstractType
             ]);
 
 
-        if($options['after14hours']->format('H-i') >= '14:00') {
-            $builder
-                ->add('typeTarif', ChoiceType::class, [
-                    'choices' => [
-                        'Demi-journée' => 1,
-                    ],
-                    'expanded' => true, // Pour afficher en radio buttons
-                ]);
-        }
+//        if($options['after14hours']->format('H-i') >= '14:00') {
+//            $builder
+//                ->add('typeTarif', ChoiceType::class, [
+//                    'choices' => [
+//                        'Demi-journée' => 1,
+//                    ],
+//                    'expanded' => true, // Pour afficher en radio buttons
+//                ]);
+//        }
 
     }
 
