@@ -10,16 +10,6 @@ class CloseDayValidator extends ConstraintValidator
 {
     public function validate($date, Constraint $constraint)
     {
-        /* @var $constraint \App\Validator\CloseDay */
-//        $util = new \Checkdomain\Holiday\Util();
-////        La date en châine de characteres
-//        $date = date_format($date, 'd-m-Y');
-//
-//
-//        //Jours fériés
-//        $holiday = $util->getHoliday('FR', $date);
-
-
         $dateVisite = $date->format('d-m');
 
         $reservationDate = new \DateTime();

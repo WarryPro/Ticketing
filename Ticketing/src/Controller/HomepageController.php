@@ -10,6 +10,7 @@ use App\Entity\Buyer;
 use App\Form\ReservationFormType;
 use App\Repository\BuyerRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class HomepageController extends AbstractController
 {
@@ -31,7 +32,7 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, Session $session)
+    public function index(Request $request, Session $session, ValidatorInterface $validator)
     {
 
         $ticket = new Buyer();
@@ -40,16 +41,13 @@ class HomepageController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $session -> set('reservation', $ticket);
-
             return $this -> redirectToRoute('reservation');
         }
 
         return $this->render('homepage/index.html.twig', [
             'form' => $form -> createView(),
             'reservation' => $ticket,
+            'validator' => $validator,
         ]);
-//        return $this->render('homepage/index.html.twig', [
-//            'controller_name' => 'HomepageController',
-//        ]);
     }
 }
