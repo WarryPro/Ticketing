@@ -18,17 +18,17 @@
                 <div class="d-flex justify-content-center">
                     {{ form_start(form) }}
                     <div id="form-card" class="card card--form text-center">
-
-                        {% for collectedData in validator.collectedData %}
-                            {% for violation in collectedData.violations %}
-                                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-                                    {{ violation.message }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
+                        {#{{ dump(validator) }}#}
+                        {#{% for collectedData in validator.collectedData %}#}
+                            {#{% for violation in collectedData.violations %}#}
+                                {#<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">#}
+                                    {#{{ violation.message }}#}
+                                    {#<button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+                                        {#<span aria-hidden="true">&times;</span>#}
+                                    {#</button>#}
+                                {#</div>#}
+                            {#{% endfor %}#}
+                        {#{% endfor %}#}
 
                         <img src="{{ asset('build/images/ticket.jpg') }}" alt="" class="card-img-top hero-image">
 
