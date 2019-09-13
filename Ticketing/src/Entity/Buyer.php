@@ -21,29 +21,6 @@ class Buyer
      */
     private $id;
 
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     * @Assert\Length(min=2, max=255)
-//     */
-//
-//    private $nom;
-//
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     * @Assert\Length(min=2, max=255)
-//     */
-//    private $prenom;
-
-//    /**
-//     * @ORM\Column(type="string", length=255)
-//     * @Assert\Country()
-//     */
-//    private $pays;
-
-//    /**
-//     * @ORM\Column(type="datetime")
-//     */
-//    private $dateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,11 +36,6 @@ class Buyer
      */
     private $typeTarif;
 
-//    /**
-//     * @ORM\Column(type="integer")
-//     * @Assert\Choice({"Journée", "Demi-journée"})
-//     */
-//    private $typeTicket;
 
     /**
      * @ORM\Column(type="integer")
@@ -110,54 +82,6 @@ class Buyer
         return $this->id;
     }
 
-//    public function getNom(): ?string
-//    {
-//        return $this->nom;
-//    }
-//
-//    public function setNom(string $nom): self
-//    {
-//        $this->nom = $nom;
-//
-//        return $this;
-//    }
-//
-//    public function getPrenom(): ?string
-//    {
-//        return $this->prenom;
-//    }
-//
-//    public function setPrenom(string $prenom): self
-//    {
-//        $this->prenom = $prenom;
-//
-//        return $this;
-//    }
-
-//    public function getPays(): ?string
-//    {
-//        return $this->pays;
-//    }
-//
-//    public function setPays(string $pays): self
-//    {
-//        $this->pays = $pays;
-//
-//        return $this;
-//    }
-
-//    public function getDateNaissance(): ?\DateTimeInterface
-//    {
-//        return $this->dateNaissance;
-//    }
-//
-//    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
-//    {
-//        $this->dateNaissance = $dateNaissance;
-//
-//        return $this;
-//    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -181,18 +105,6 @@ class Buyer
 
         return $this;
     }
-
-//    public function getTypeTicket(): ?int
-//    {
-//        return $this->typeTicket;
-//    }
-//
-//    public function setTypeTicket(int $typeTicket): self
-//    {
-//        $this->typeTicket = $typeTicket;
-//
-//        return $this;
-//    }
 
     public function getNbrTickets(): ?int
     {
@@ -284,16 +196,4 @@ class Buyer
 
         return $this;
     }
-//
-//    public function getToken(): ?string
-//    {
-//        return $this->token;
-//    }
-//
-//    public function setToken(?string $token): self
-//    {
-//        $this->token = $token;
-//
-//        return $this;
-//    }
 }

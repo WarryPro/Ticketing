@@ -29,6 +29,8 @@ class PriceCalcul
 
             $tarif = 0;
 
+            if($age < 4) { $tarif = 0; }
+
             if($age >= 4) {
                 if($age < 12) {
                     $tarif = 8;
@@ -43,7 +45,7 @@ class PriceCalcul
             $ticket -> setTarif($tarif);
             $tarifTotal += $tarif;
         }
-        dump( $tarifTotal);
+
         return $tarifTotal;
     }
 

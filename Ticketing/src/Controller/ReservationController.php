@@ -56,7 +56,7 @@ class ReservationController extends AbstractController
     public function index(Request $request, Session $session, Swift_Mailer $mailer)
     {
         if ($session->get('reservation') == null) {
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('homepage');
         }
         $reservation = $session->get('reservation');
         $total = $this->priceCalcul->priceCalcul($reservation);

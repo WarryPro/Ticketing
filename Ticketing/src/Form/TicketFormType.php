@@ -36,7 +36,7 @@ class TicketFormType extends AbstractType
             ->add('dateNaissance', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['min' => date('Y-m-d', strtotime('-120 years')),
-                'max' => date('Y-m-d', strtotime('-4 years'))],
+                'max' => date('Y-m-d', strtotime('-1 days'))],
                 'label' => 'Date de naissance'
             ])
 

@@ -14,7 +14,7 @@
             <h2>Resumé de votre commande</h2>
             <ul>
                 <li>Code de reservation: <strong>{{ reservation.codeReservation }}</strong></li>
-                <li>Nombre de billets: <strong>{{ reservation.nbrTickets }}</strong></li>
+                <li>Nombre de billets: <strong>{{ reservation.tickets|length }}</strong></li>
                 <li>Type de billet:
                     {% if(reservation.typeTarif == "1") %}
                         <strong>Demi-journée</strong>
