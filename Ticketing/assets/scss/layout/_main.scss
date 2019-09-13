@@ -1,0 +1,13 @@
+main, .ticket-section {
+  display: flex;
+  justify-content: center;
+}
+.ticket-section {
+  flex-direction: column;
+
+
+  // Corrige bug d'affichage d'un fieldset de plus
+  fieldset.form-group {
+    display: none;
+  }
+}

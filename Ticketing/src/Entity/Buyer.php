@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\CloseDay;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BuyerRepository")
  */
 class Buyer
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -16,28 +21,13 @@ class Buyer
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pays;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateNaissance;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' Le email n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -46,10 +36,6 @@ class Buyer
      */
     private $typeTarif;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $typeTicket;
 
     /**
      * @ORM\Column(type="integer")
@@ -58,6 +44,8 @@ class Buyer
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual("today UTC", message="Vous ne pouvez pas réservez pour les jours passés")
+     * @CloseDay()
      */
     private $dateVisite;
 
@@ -71,57 +59,27 @@ class Buyer
      */
     private $dateReservation;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="buyer", cascade={"persist"})
+     */
+    private $tickets;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $Total;
+
+
+    public function __construct()
+    {
+        $this->tickets = new ArrayCollection();
+        $this->dateReservation = new \DateTime();
+        $this->codeReservation = substr(sha1(random_bytes(10)), 0, 10);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    public function getDateNaissance(): ?\DateTimeInterface
-    {
-        return $this->dateNaissance;
-    }
-
-    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
-    {
-        $this->dateNaissance = $dateNaissance;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -144,18 +102,6 @@ class Buyer
     public function setTypeTarif(string $typeTarif): self
     {
         $this->typeTarif = $typeTarif;
-
-        return $this;
-    }
-
-    public function getTypeTicket(): ?int
-    {
-        return $this->typeTicket;
-    }
-
-    public function setTypeTicket(int $typeTicket): self
-    {
-        $this->typeTicket = $typeTicket;
 
         return $this;
     }
@@ -204,6 +150,49 @@ class Buyer
     public function setDateReservation(\DateTimeInterface $dateReservation): self
     {
         $this->dateReservation = $dateReservation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setBuyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getBuyer() === $this) {
+                $ticket->setBuyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->Total;
+    }
+
+    public function setTotal(float $Total): self
+    {
+        $this->Total = $Total;
 
         return $this;
     }

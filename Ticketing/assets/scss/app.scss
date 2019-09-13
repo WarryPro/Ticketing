@@ -1,5 +1,23 @@
+@import "./helper/variables";
+
 @import "~bootstrap";
 
+//LAYOUT
+@import "./layout/header";
+@import "./layout/main";
+@import "./layout/footer";
+
+
+//COMPONENTS
+@import "./components/carousel";
+@import "./components/forms";
+@import "./components/stripe-form";
+
 body {
-    background: var(--white);
+    //background: var(--white);
+  color: $text-color;
+
+  ul {
+    list-style: none;
+  }
 }

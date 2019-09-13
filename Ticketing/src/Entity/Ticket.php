@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -17,41 +18,129 @@ class Ticket
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Buyer", inversedBy="tickets")
      */
-    private $journee;
+    private $buyer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255)
      */
-    private $demiJournee;
+
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Country()
+     */
+    private $pays;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateNaissance;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $reduction;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $tarif;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getJournee(): ?int
+    public function getBuyer(): ?Buyer
     {
-        return $this->journee;
+        return $this->buyer;
     }
 
-    public function setJournee(int $journee): self
+    public function setBuyer(?Buyer $buyer): self
     {
-        $this->journee = $journee;
+        $this->buyer = $buyer;
 
         return $this;
     }
 
-    public function getDemiJournee(): ?int
+    public function getReduction(): ?bool
     {
-        return $this->demiJournee;
+        return $this->reduction;
     }
 
-    public function setDemiJournee(int $demiJournee): self
+    public function setReduction(?bool $reduction): self
     {
-        $this->demiJournee = $demiJournee;
+        $this->reduction = $reduction;
 
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getTarif(): ?int
+    {
+        return $this->tarif;
+    }
+
+    public function setTarif(int $tarif): self
+    {
+        $this->tarif = $tarif;
         return $this;
     }
 }
