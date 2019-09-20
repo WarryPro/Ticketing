@@ -60,7 +60,7 @@ class ReservationController extends AbstractController
         }
         $reservation = $session->get('reservation');
         $total = $this->priceCalcul->priceCalcul($reservation);
-        dump($reservation);
+
 
         if ($request->get('stripeEmail')) {
             $reservation->setEmail($request->request->get('stripeEmail'));
@@ -103,7 +103,7 @@ class ReservationController extends AbstractController
     */
     public function create(Request $request, ObjectManager $manager, Session $session)
     {
-        dump($request, $session);
+
         $ticket = new Buyer();
 
         $form = $this -> createFormBuilder($ticket)
