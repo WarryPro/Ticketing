@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div class="container form-container">
+
+    </div>
+    {% block javascript %}
+        {{ encore_entry_script_tags('form-steps') }}
+
+        <script>
+            window.location.hash = "no-back-button";
+            window.location.hash = "Again-No-back-button";// cette ligne pour google chrome
+            window.onhashchange = function(){
+                window.location.hash="no-back-button";
+            }
+        </script>
+
+    {% endblock %}
+{% endblock %}

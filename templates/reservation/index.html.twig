@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation | {{ parent() }} {% endblock %}
+{% block body %}
+
+    {% block carousel %}
+        {{ include('/partials/_homepage-carousel.html.twig') }}
+    {% endblock %}
+
+    <main class="container mb-5">
+
+        <div class="form-container mb-5" id="form-steps-container">
+
+            <div class="steps-container">
+                <a href="#" class="step"><span>1</span> Infos personnelles</a>
+                <a href="#" class="step active"><span>2</span> Détails de la commande</a>
+                {#<a href="#" class="step active"><span>3</span> Paiement</a>#}
+                {#<a href="#" class="step"><span>4</span> Confirmation</a>#}
+            </div>
+
+            <div class="tab stripe-content">
+                <div id="payment-container">
+                    <div class="card checkout">
+                        <p class="text-center">Détails de la commande</p>
+                        <hr>
+                        {% for ticket in reservation.tickets  %}
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                        {#{{ dump(ticket) }}#}
+                                    <p>Nom du visiteur</p>
+                                    <span>{{ ticket.prenom  }} {{ ticket.nom  }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p>Type de billet</p>
+                                    {% if  ticket.buyer.typeTarif == '1' %}
+                                        <span>Billet demi-journée</span>
+                                    {% endif %}
+                                    {% if  ticket.buyer.typeTarif == '0' %}
+                                        <span>Billet journalier</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p>Date de visite</p>
+                                    <span>{{ ticket.buyer.dateVisite.date | date("d/m/Y") }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p>Reduction</p>
+                                    {% if  ticket.reduction %}
+                                        <span>Billet reduit</span>
+                                    {% elseif  ticket.reduction == false %}
+                                        <span>Sans réduction</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p>Tarif</p>
+                                    <span>{{ ticket.tarif }}.00 €</span>
+                                </div>
+                                <hr>
+
+                                    {#{{ ticket.pays  }}#}
+                                    {#{{ ticket.tarif  }}#}
+                                    {#{{ ticket.buyer.nbrTickets  }}#}
+                                    {#{{ ticket.buyer.dateVisite.date  }}#}
+                            </div>
+                        {% endfor %}
+                        <div class="d-flex justify-content-between">
+                            <p>Total</p>
+                            <span>{{total}}.00 €</span>
+                        </div>
+                    </div>
+
+                    {#{% for  buyer in reservation.tickets.buyer %}#}
+                        {#{{ buyer.dateVisite }}#}
+                        {#{{ buyer.nbrTickets }}#}
+                    {#{% endfor %}#}
+
+                    <form action="{{ path('reservation') }}" method="POST">
+                        <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_CNsJfNp2J2FHaa4Ikr0xIapy"
+                                data-amount="{{ total * 100 }}"
+                                data-currency="EUR"
+                                data-name="Musée du Louvre"
+                                data-description="Paiement de votre billet"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="fr"
+                                data-label="Acheter - {{ total }}.00 €"
+                                data-allow-remember-me="false">
+                        </script>
+                    </form>
+                </div>
+
+            {#<div class="tab d-none">#}
+                {#<h2>Confirmation</h2>#}
+            {#</div>#}
+
+
+            {#bouttons étapes#}
+            {#<div class="steps-container">#}
+                {#<button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>#}
+                {#<button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>#}
+            {#</div>#}
+
+        </div>
+    </main>
+
+
+    {% block javascript %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        {{ encore_entry_script_tags('forms-validate') }}
+        {{ encore_entry_script_tags('form-steps') }}
+        {{ encore_entry_script_tags('form-colletion') }}
+        {#Create a Stripe client.#}
+        {#let stripe = Stripe('pk_test_CNsJfNp2J2FHaa4Ikr0xIapy');#}
+
+    {% endblock %}
+{% endblock %}
