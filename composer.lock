@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "285675b183b9932590b03cae2b8a8ef3",
+    "content-hash": "6ebabc6fa14fa700a2be37b39df8793c",
     "packages": [
         {
             "name": "checkdomain/holiday",
@@ -6582,7 +6582,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
