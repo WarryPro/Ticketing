@@ -32,7 +32,7 @@
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.2.*"
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "symfony/debug-pack": "*",
