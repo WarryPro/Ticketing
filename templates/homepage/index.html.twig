@@ -18,13 +18,15 @@
                 <div class="d-flex justify-content-center">
                     {{ form_start(form) }}
                     <div id="form-card" class="card card--form text-center">
-                        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-                            {{ form_errors(form.dateVisite) }}
-                            {{ form_errors(form.typeTarif) }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                        {% if( (form_errors(form.dateVisite)) or (form_errors(form.typeTarif)) ) %}
+                            <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                                {{ form_errors(form.dateVisite) }}
+                                {{ form_errors(form.typeTarif) }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endif %}
 
                         <img src="{{ asset('build/images/ticket.jpg') }}" alt="" class="card-img-top hero-image">
 
