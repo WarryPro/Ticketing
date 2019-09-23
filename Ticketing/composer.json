@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -15,10 +14,9 @@
         "symfony/console": "4.2.*",
         "symfony/dotenv": "4.2.*",
         "symfony/expression-language": "4.2.*",
-        "symfony/finder": "^4.0",
         "symfony/flex": "^1.1",
         "symfony/form": "4.2.*",
-        "symfony/framework-bundle": "*",
+        "symfony/framework-bundle": "4.2.*",
         "symfony/monolog-bundle": "^3.4",
         "symfony/orm-pack": "*",
         "symfony/process": "4.2.*",
@@ -33,7 +31,6 @@
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.2.*"
     },
-    "minimum-stability": "stable",
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "symfony/debug-pack": "*",
@@ -89,6 +86,4 @@
             "require": "4.2.*"
         }
     }
-=======
->>>>>>> 3720ff86a7b7a463a816453fc5a5afdc18020c69
 }
