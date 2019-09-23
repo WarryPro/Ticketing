@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -89,6 +88,4 @@
             "require": "4.2.*"
         }
     }
-=======
->>>>>>> 3720ff86a7b7a463a816453fc5a5afdc18020c69
 }
