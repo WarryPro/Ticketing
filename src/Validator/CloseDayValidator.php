@@ -24,6 +24,10 @@ class CloseDayValidator extends ConstraintValidator
         if($day === "Tuesday") {
             $this->context->addViolation($constraint->tuesday);
         }
+        if ($day === "Sunday") {
+            $this->context->buildViolation($constraint->sunday)
+                ->addViolation();
+        }
         if (in_array($dateVisite, $closedDays)) {
             $this->context->addViolation($constraint->closed);
         }
