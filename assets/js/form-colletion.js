@@ -22,6 +22,7 @@ function validateCardInputs() {
             if(dateVisite < now) {
                 console.log(dateVisite, now);
                 alert("Vous ne pouvez pas reserver pour les jours passés!");
+                return false;
             }
 
             // if(day < 10) day = '0'+ day;

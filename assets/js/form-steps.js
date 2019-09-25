@@ -42,7 +42,7 @@ function nextPrev(n) {
     }
 
     // Hide the current tab:
-    tab[currentTab].classList.add("d-none");
+    // tab[currentTab].classList.add("d-none");
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
     // if you have reached the end of the form...
