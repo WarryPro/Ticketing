@@ -19,22 +19,23 @@ class BuyerRepository extends ServiceEntityRepository
         parent::__construct($registry, Buyer::class);
     }
 
-    // /**
-    //  * @return Buyer[] Returns an array of Buyer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Buyer[] Returns an array of Buyer objects
+    */
+
+    public function getNbrTickets(\DateTime $dateVisite):?int
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('sum(b.nbrTickets)')
+            ->andWhere('b.dateVisite = :dateVisite')
+            ->setParameter('dateVisite', $dateVisite)
+//            ->orderBy('b.id', 'ASC')
+//            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+//            ->getResult();
+            ->getSingleScalarResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Buyer

@@ -18,10 +18,11 @@
                 <div class="d-flex justify-content-center">
                     {{ form_start(form) }}
                     <div id="form-card" class="card card--form text-center">
-                        {% if( (form_errors(form.dateVisite)) or (form_errors(form.typeTarif)) ) %}
+                        {% if( (form_errors(form.dateVisite)) or (form_errors(form.typeTarif)) or (form_errors(form.nbrTickets))) %}
                             <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
                                 {{ form_errors(form.dateVisite) }}
                                 {{ form_errors(form.typeTarif) }}
+                                {{ form_errors(form.nbrTickets) }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

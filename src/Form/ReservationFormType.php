@@ -33,7 +33,9 @@ class ReservationFormType extends AbstractType
 
             ->add('dateVisite', DateType::class, [
                 'widget' => 'single_text',
-                'attr' => ['min' => date('Y-m-d'), 'max' => date('Y-m-d', strtotime('+1 years'))],
+                'attr' => ['min' => date('Y-m-d'),
+                            'max' => date('Y-m-d', strtotime('+1 years')),
+                            'value' => date('Y-m-d')],
             ])
 
             ->add('nbrTickets', IntegerType::class, [

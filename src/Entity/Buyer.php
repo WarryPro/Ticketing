@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\NbreTickets;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,6 +40,7 @@ class Buyer
 
     /**
      * @ORM\Column(type="integer")
+     * @NbreTickets()
      */
     private $nbrTickets;
 
