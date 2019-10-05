@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
         <title>{% block title %}Billeterie musée du Louvre{% endblock %}</title>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -22,6 +23,10 @@
         {% endblock %}
 
 
+
+        {% block footer %}
+            {{ include('/partials/_footer.html.twig') }}
+        {% endblock %}
 
 
         {% block javascripts %}
