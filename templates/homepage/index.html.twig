@@ -85,16 +85,16 @@
                             <h2>Infos personnelles</h2>
 
 
-                            <div id="add-container" class="py-2">
-                                <a id="add-billet" class="btn btn-secondary add" href="#" onclick="validateCardInputs()">Ajouter un autre billet</a>
+                            <div id="add-container" class="py-2 float-left">
+                                <a id="add-billet" class="btn btn-secondary add" href="#" onclick="validateCardInputs()" title="Ajouter un autre billet">+</a>
+                            </div>
+                            <div class="steps-container py-2 m-0 float-right">
+                                <button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>
+                                <button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>
                             </div>
                         </div>
 
                         {#bouttons étapes#}
-                        <div class="steps-container">
-                            <button type="button" id="prevBtn" data-trigger="-1" class="btn btn-light">Précedent</button>
-                            <button type="button" id="nextBtn" data-trigger="1" class="btn btn-primary">Suivant</button>
-                        </div>
 
                     </div>
                     {{ form_end(form) }}
